@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Babe ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html, body{
+    height:100%;
+    width:100%;
+    overflow:hidden;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg,#ff758c,#ff7eb3,#fad0c4,#ff9a9e);
+    background-size:400% 400%;
+    animation: gradientBG 12s ease infinite;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.15);
+    padding:30px 20px;
+    border-radius:25px;
+    width:100%;
+    max-width:420px;
+    box-shadow:0 15px 50px rgba(0,0,0,0.25);
+}
+
+h1{
+    font-family:'Great Vibes',cursive;
+    font-size:42px;
+    margin-bottom:18px;
+    line-height:1.2;
+}
+
+.typing{
+    font-size:16px;
+    min-height:70px;
+    margin-bottom:20px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:15px;
+}
+
+.yes{
+    background:white;
+    color:#ff4d6d;
+}
+
+.no{
+    background:#ff4d6d;
+    color:white;
+}
+
+button:active{
+    transform:scale(0.97);
+}
+
+.hidden{
+    display:none;
+    margin-top:15px;
+    animation:fadeIn 2s ease forwards;
+    font-size:16px;
+    line-height:1.6;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(15px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.heart{
+    position:absolute;
+    font-size:18px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float{
+    0%{ transform:translateY(100vh); opacity:1;}
+    100%{ transform:translateY(-10vh); opacity:0;}
+}
+
+@media (max-width:350px){
+    h1{font-size:36px;}
+    .typing{font-size:14px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Happy Birthday My Babe ❤️</h1>
+    <div class="typing" id="typing"></div>
+
+    <div id="question">
+        <p>Do you trust me enough to open your surprise? 😌</p>
+        <button class="yes" onclick="openSurprise()">Yes 💖</button>
+        <button class="no" ontouchstart="moveNo(event)" onclick="moveNo(event); return false;">No 🙈</button>
+    </div>
+
+    <div class="hidden" id="letter">
+        Listen carefully…  
+        You are mine.  
+        Not in a controlling way —  
+        but in that deep, protective, soft possessive way  
+        where I choose you every single day.  
+
+        Your smile? Mine to protect.  
+        Your tears? Mine to wipe.  
+        Your dreams? Mine to support.  
+
+        I don’t want perfect.  
+        I want you.  
+
+        Happy Birthday to the girl who owns my heartbeat. ❤️
+    </div>
+</div>
+
+<!-- 🎵 REAL AUDIO FILE -->
+<audio id="bgMusic" src="love.mpeg" loop preload="auto"></audio>
+
+<script>
+
+// Typing
+const message = "Before you continue... close your eyes for 3 seconds and feel something. Because today isn’t special just because it’s your birthday — it’s special because you exist. 💫";
+let i = 0;
+
+function typeWriter(){
+    if(i < message.length){
+        document.getElementById("typing").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 35);
+    }
+}
+typeWriter();
+
+// Floating hearts
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20+15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},6000);
+}
+setInterval(createHeart,300);
+
+// Mobile-safe NO button
+function moveNo(e){
+    if(e) e.preventDefault();
+    const noBtn = document.querySelector(".no");
+    noBtn.style.position = "fixed";
+
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+}
+
+// Open surprise
+function openSurprise(){
+    document.getElementById("question").style.display="none";
+    document.getElementById("letter").style.display="block";
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.8;
+    music.play(); // Will loop automatically
+
+    confetti();
+}
+
+// Confetti
+function confetti(){
+    for(let i=0;i<150;i++){
+        const conf = document.createElement("div");
+        conf.style.position="absolute";
+        conf.style.width="8px";
+        conf.style.height="8px";
+        conf.style.background="white";
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.top="-10px";
+        conf.style.animation="fall 3s linear forwards";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),3000);
+    }
+}
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fall {
+    to { transform: translateY(100vh); opacity:0; }
+}`;
+document.head.appendChild(style);
+
+</script>
+
+</body>
+</html>
